@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Vite logo" viewBox="0 0 410 404">
+  <path
+    d="M399.641 59.524L215.643 388.545c-3.934 7.04-14.116 7.046-18.06.01L10.181 59.524c-4.356-7.665 2.172-17.304 10.79-15.933l184.102 29.299a10 10 0 0 0 3.14-.001l180.633-29.288c8.614-1.396 15.158 8.236 10.795 15.923Z"
+    fill="url(#vite-a)"
+  />
+  <path
+    d="M292.965.364 156.98 27.053a5 5 0 0 0-4.066 4.108l-8.358 141.956a5 5 0 0 0 6.062 5.208l37.84-8.725a5 5 0 0 1 6.01 5.96l-11.243 55.097a5 5 0 0 0 6.17 5.84l23.37-6.901a5 5 0 0 1 6.302 5.747l-17.862 86.605c-1.117 5.422 6.095 8.38 9.128 3.741L322.364 93.295a5 5 0 0 0-5.381-7.283l-39.551 7.615a5 5 0 0 1-5.916-5.599l26.418-81.247a5 5 0 0 0-4.969-6.417Z"
+    fill="url(#vite-b)"
+  />
+  <defs>
+    <linearGradient id="vite-a" x1="6" x2="235" y1="32" y2="344" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#41D1FF" />
+      <stop offset="1" stop-color="#BD34FE" />
+    </linearGradient>
+    <linearGradient id="vite-b" x1="194.651" x2="236.076" y1="8.818" y2="292.989" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFEA83" />
+      <stop offset=".083" stop-color="#FFDD35" />
+      <stop offset="1" stop-color="#FFA800" />
+    </linearGradient>
+  </defs>
+</svg>
