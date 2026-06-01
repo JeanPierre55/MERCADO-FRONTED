@@ -7,6 +7,7 @@ import { PaymentMethod } from '../../types'
 import { formatCOP } from '../../lib/money'
 import { logCheckoutStarted, logCheckoutCompleted, logCheckoutValidationError } from '../../loggers/checkoutLogger'
 import { useAuthStore } from '../../auth/authStore'
+import { registrarVenta } from '../../services/ventasService'
 
 export default function CheckoutDialog() {
   const { 
@@ -17,15 +18,19 @@ export default function CheckoutDialog() {
     cart 
   } = usePOSStore()
 
+  // ✅ Hook llamado en el nivel del componente, no dentro de callbacks
+  const session = useAuthStore((s) => s.session)
+  const username = session?.user.displayName ?? 'Desconocido'
+
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('efectivo')
   const [cashAmount, setCashAmount] = useState<number>(0)
   const [cardLastFour, setCardLastFour] = useState('')
   const [isProcessing, setIsProcessing] = useState(false)
+  const [awsError, setAwsError] = useState<string | null>(null)
 
   // Log checkout started when dialog opens
   useEffect(() => {
     if (isCheckoutOpen) {
-      const username = useAuthStore().session?.user.displayName ?? 'Desconocido'
       logCheckoutStarted(getTotal(), paymentMethod, username)
     }
   }, [isCheckoutOpen])
@@ -58,6 +63,7 @@ export default function CheckoutDialog() {
     setCardLastFour('')
     setPaymentMethod('efectivo')
     setIsProcessing(false)
+    setAwsError(null)
   }
 
   const handleCloseDialog = () => {
@@ -67,9 +73,11 @@ export default function CheckoutDialog() {
 
   const handlePayment = async () => {
     setIsProcessing(true)
-    
+    setAwsError(null)
+
     await new Promise(resolve => setTimeout(resolve, 1500))
-    
+
+    // 1. Procesar pago localmente (carrito → transacción)
     const transaction = processPayment(paymentMethod, {
       method: paymentMethod,
       amountPaid: paymentMethod === 'efectivo' ? safeCashAmount : total,
@@ -79,8 +87,23 @@ export default function CheckoutDialog() {
       cardAmount: paymentMethod === 'mixto' ? mixedCardAmount : undefined,
     })
 
-    // Log checkout completed after processPayment returns
-    const username = useAuthStore().session?.user.displayName ?? 'Desconocido'
+    // 2. Registrar venta en AWS DynamoDB via API Gateway
+    try {
+      const productosParaAWS = transaction.items.map(item => ({
+        id: item.product.id,
+        cantidad: item.quantity,
+      }))
+
+      await registrarVenta({ productos: productosParaAWS })
+      console.log('[POS][AWS] Venta registrada en DynamoDB:', transaction.receiptNumber)
+    } catch (err) {
+      // La venta local ya se procesó — solo advertimos, no revertimos
+      const msg = err instanceof Error ? err.message : 'Error al sincronizar con AWS'
+      console.warn('[POS][AWS] No se pudo guardar en DynamoDB:', msg)
+      setAwsError(`Venta procesada localmente. No se pudo sincronizar con AWS: ${msg}`)
+    }
+
+    // 3. Log checkout completado
     logCheckoutCompleted(transaction.receiptNumber, transaction.total, paymentMethod, username)
 
     resetPaymentForm()
@@ -102,8 +125,6 @@ export default function CheckoutDialog() {
   }
 
   const handleValidationError = () => {
-    const username = useAuthStore().session?.user.displayName ?? 'Desconocido'
-    
     if (paymentMethod === 'efectivo') {
       if (safeCashAmount < total) {
         logCheckoutValidationError('Monto insuficiente en efectivo', username)
@@ -561,6 +582,28 @@ export default function CheckoutDialog() {
               }}
             />
           </div>
+        </div>
+      )}
+
+      {/* AWS sync warning — solo si hubo error al guardar en DynamoDB */}
+      {awsError && (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '0.5rem',
+            padding: '0.75rem 1rem',
+            marginBottom: '1rem',
+            backgroundColor: 'rgba(212,163,115,0.15)',
+            border: '1px solid rgba(212,163,115,0.4)',
+            borderRadius: '10px',
+            fontSize: '0.8125rem',
+            color: '#8b5a2b',
+          }}
+          role="alert"
+        >
+          <span aria-hidden="true">⚠️</span>
+          <span>{awsError}</span>
         </div>
       )}
 

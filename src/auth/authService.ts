@@ -8,6 +8,7 @@
  */
 
 import type { UserRole, AuthUser } from '../types/index'
+import { BACKEND_URL } from '../config'
 
 // ---------------------------------------------------------------------------
 // Public types
@@ -35,8 +36,9 @@ export interface AuthServiceError {
 // ---------------------------------------------------------------------------
 
 function getBaseUrl(): string {
-  // Requirements 7.4, 7.5 — read from env, fallback to localhost
-  return import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080'
+  // BACKEND_URL apunta a Spring Boot (localhost:8080 por defecto)
+  // El proxy de Vite también redirige /api/* → localhost:8080 como respaldo
+  return BACKEND_URL
 }
 
 function isAuthServiceError(value: unknown): value is AuthServiceError {

@@ -1,7 +1,7 @@
 import { Product, CategoryInfo } from '../types'
 import { COLOMBIA_GENERAL_VAT_RATE } from '../lib/money'
 
-const IVA_EXCLUIDO = 0
+const IVA_EXCLUIDO = COLOMBIA_GENERAL_VAT_RATE
 const IVA_GENERAL = COLOMBIA_GENERAL_VAT_RATE
 
 export const categories: CategoryInfo[] = [

@@ -10,9 +10,10 @@ import { usePOSStore } from '../../store/posStore'
 
 interface ProductCatalogProps {
   toast: RefObject<Toast | null>
+  searchInputRef?: RefObject<HTMLInputElement>
 }
 
-export default function ProductCatalog({ toast }: ProductCatalogProps) {
+export default function ProductCatalog({ toast, searchInputRef }: ProductCatalogProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'all'>('all')
   const [barcodeInput, setBarcodeInput] = useState('')
@@ -108,6 +109,7 @@ export default function ProductCatalog({ toast }: ProductCatalogProps) {
             }} 
           />
           <InputText
+            ref={searchInputRef}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Buscar productos..."
