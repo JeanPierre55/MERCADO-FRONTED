@@ -145,21 +145,21 @@ function App() {
   // ── Atajos de teclado ───────────────────────────────────────────────────────
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      // Shift + 1..5
+      // Shift + Q/W/E/R/T
       if (e.shiftKey) {
-        switch (e.key) {
-          case '1':
+        switch (e.key.toLowerCase()) {
+          case 'q':
             e.preventDefault()
             searchInputRef.current?.focus()
             searchInputRef.current?.select()
             return
 
-          case '2':
+          case 'w':
             e.preventDefault()
             setPanelVisible(true)
             return
 
-          case '3':
+          case 'e':
             e.preventDefault()
             if (searchInputRef.current) {
               searchInputRef.current.value = ''
@@ -167,7 +167,7 @@ function App() {
             }
             return
 
-          case '4':
+          case 'r':
             e.preventDefault()
             clearCart()
             toast.current?.show({
@@ -178,7 +178,7 @@ function App() {
             })
             return
 
-          case '5':
+          case 't':
             e.preventDefault()
             setProductos([])
             cargarProductos().then(() => {
