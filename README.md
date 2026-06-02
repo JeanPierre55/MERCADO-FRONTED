@@ -256,6 +256,13 @@ Para acceder al sistema, usa las credenciales configuradas en el backend Java:
 
 > **Nota:** Las credenciales exactas dependen de la configuración del backend. Consulta con el administrador del sistema.
 >
+> Repositorios GitHub
+Frontend:
+https://github.com/JeanPierre55/MERCADO-FRONTED
+Backend:
+https://github.com/JeanPierre55/MERCADO-BACKEND
+
+>
 > IMAGENES DEL PROYECTO
 >
 > <img width="1920" height="1123" alt="Captura desde 2026-06-01 17-56-48" src="https://github.com/user-attachments/assets/ef51e1fa-7ba2-4c1a-a9ef-980df9e549f3" />
