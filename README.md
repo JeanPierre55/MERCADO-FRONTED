@@ -255,3 +255,29 @@ Para acceder al sistema, usa las credenciales configuradas en el backend Java:
 | `cajero` | `cajero123` | CASHIER |
 
 > **Nota:** Las credenciales exactas dependen de la configuración del backend. Consulta con el administrador del sistema.
+>
+> IMAGENES DEL PROYECTO
+>
+> <img width="1920" height="1123" alt="Captura desde 2026-06-01 17-56-48" src="https://github.com/user-attachments/assets/ef51e1fa-7ba2-4c1a-a9ef-980df9e549f3" />
+
+<img width="1920" height="1123" alt="Captura desde 2026-06-01 17-57-05" src="https://github.com/user-attachments/assets/40dad41b-1e25-4dab-acf8-5d2429f95592" />
+
+
+<img width="1920" height="1123" alt="Captura desde 2026-06-01 17-57-23" src="https://github.com/user-attachments/assets/c99af965-88b2-4def-82bd-bca0cd785be3" />
+
+<img width="432" height="945" alt="Captura desde 2026-06-01 17-57-42" src="https://github.com/user-attachments/assets/d16d0293-0b44-4167-95a7-71e302b3d8f7" />
+
+
+
+<img width="809" height="990" alt="Captura desde 2026-06-01 17-58-05" src="https://github.com/user-attachments/assets/ea5a2043-7aab-44f1-ab30-5957e3a33023" />
+
+
+
+<img width="603" height="1001" alt="Captura desde 2026-06-01 17-58-52" src="https://github.com/user-attachments/assets/c82da557-6e90-4edd-bef1-3400e12bf326" />
+
+
+<img width="603" height="1001" alt="Captura desde 2026-06-01 17-59-10" src="https://github.com/user-attachments/assets/9b88544b-d86e-4a23-a4ef-8defa09c5700" />
+
+
+
+> 
